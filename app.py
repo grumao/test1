@@ -1,7 +1,7 @@
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for,flash
 import json
 app = Flask(__name__)
-
+app.secret_key = 'workgroup595'
 @app.route('/')
 def home():
 
@@ -27,14 +27,54 @@ def services():
         if request.form.get('service6'):
             NLPserv[6] = 1
 
+
         Data['user_string'] = {'services': NLPserv,'s1':request.form['s1'] }
 
         with open('Data.json','w') as Data_file:
             json.dump(Data,Data_file)
 
-        return render_template('results.html', name=request.form['s1'])
+        Flag = 0
+        for k in NLPserv.values():
+            if k == 0:
+                Flag += 1
+
+        if Flag == 6:
+            flash('Please select atleast one service to proceed')
+            return redirect(url_for('home'))
+
+
+        f = open('Data.json')
+        data = json.load(f)
+
+        def sentiment(textblock):
+            from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+            analyser = SentimentIntensityAnalyzer()
+            service1 = analyser.polarity_scores(textblock)
+            return service1
+
+        def part_of_speech(textblock):
+            from nltk import pos_tag
+            from nltk import word_tokenize
+            text = word_tokenize(textblock)
+            service2 = pos_tag(text)
+            return service2
+
+        text = data['user_string']['s1']
+        output = {}
+        if data['user_string']['services']['1']:
+            op1 = sentiment(text)
+            output['Sentiment analysis'] = op1
+        if data['user_string']['services']['2']:
+            op2 = part_of_speech(text)
+            output['Part of speech'] = op2
+
+
+
+
+        return render_template('results.html', name=output)
     else:
         return redirect(url_for('home'))
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000)
