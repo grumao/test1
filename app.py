@@ -53,18 +53,42 @@ def services():
             return service1
 
         def part_of_speech(textblock):
-            import nltk
-            nltk.download('punkt')
-            nltk.download('averaged_perceptron_tagger')
             from nltk import pos_tag
             from nltk import word_tokenize
             text = word_tokenize(textblock)
             service2 = pos_tag(text)
             return service2
-
+        
+        def text_classification(textblock):
+            import pandas as pd
+            from textblob.classifiers import NaiveBayesClassifier
+            fake = pd.read_csv('Fake.csv')
+            true = pd.read_csv('True.csv')
+            fake['class'] = 'fake'
+            true['class'] = 'true'
+            factCheck = pd.concat([fake,true]).reset_index(drop=True)
+            factCheck = factCheck.sample(frac=1)
+            model_data = factCheck[['text', 'class']]
+            model_data = model_data.values.tolist()
+            train = model_data[1:800]
+            test = model_data[801:1000]
+            model = NaiveBayesClassifier(train)
+            service3 = model.classify(textblock)
+            return service3
+        
+        def word_cloud(textblock):
+            from wordcloud import WordCloud
+            import matplotlib.pyplot as plt
+            wc = WordCloud(background_color='white', width = 300, height=300, margin=2).generate(textblock)
+            plt.figure(figsize=(8,8), facecolor = 'white')
+            plt.imshow(wc)
+            plt.axis('off')
+            plt.tight_layout(pad=2)
+            
+            
         text = data['user_string']['s1']
         output = {'Sentiment analysis':'-','Part of speech':'-',
-                  'Text classification':'-','Word Cloud':'-',
+                  'Fact Check (Text classification)':'-','Word Cloud':'-',
                   'Topic modelling':'-','Aspect mining':'-'}
         if data['user_string']['services']['1']:
             op1 = sentiment(text)
