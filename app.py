@@ -53,6 +53,9 @@ def services():
             return service1
 
         def part_of_speech(textblock):
+            import nltk
+            nltk.download('punkt')
+            nltk.download('averaged_perceptron_tagger')
             from nltk import pos_tag
             from nltk import word_tokenize
             text = word_tokenize(textblock)
