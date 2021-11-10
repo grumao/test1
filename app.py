@@ -60,7 +60,9 @@ def services():
             return service2
 
         text = data['user_string']['s1']
-        output = {}
+        output = {'Sentiment analysis':'-','Part of speech':'-',
+                  'Text classification':'-','Word Cloud':'-',
+                  'Topic modelling':'-','Aspect mining':'-'}
         if data['user_string']['services']['1']:
             op1 = sentiment(text)
             output['Sentiment analysis'] = op1
@@ -71,7 +73,9 @@ def services():
 
 
 
-        return render_template('results.html', name=output)
+        return render_template('results.html',R1= output['Sentiment analysis'],R2 = output['Part of speech'],
+                               R3= output['Text classification'], R4= output['Word Cloud'],
+                               R5= output['Topic modelling'], R6= output['Aspect mining'])
     else:
         return redirect(url_for('home'))
 
