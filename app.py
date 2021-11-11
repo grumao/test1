@@ -199,7 +199,7 @@ def services():
             
         if data['user_string']['services']['3']:
             op3 = text_classification(text)
-            output['Part of speech'] = op3
+            output['Text classification'] = op3
             
         if data['user_string']['services']['4']:
             op4 = word_cloud(text)
