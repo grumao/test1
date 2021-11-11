@@ -217,7 +217,7 @@ def services():
 
 
         return render_template('results.html',R1= output['Sentiment analysis'],R2 = output['Part of speech'],
-                               R3= output['Text classification'],R4 = plt.imshow(output['Word Cloud']),
+                               R3= output['Text classification'],R4 = output['Word Cloud'],
                                R5= output['Topic modelling'], R6= output['Aspect mining'])
     else:
         return redirect(url_for('home'))
