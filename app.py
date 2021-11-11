@@ -78,11 +78,7 @@ def services():
         def word_cloud(textblock):
             from wordcloud import WordCloud
             wc = WordCloud(background_color='white', width=300, height=300, margin=2).generate(textblock)
-            plt.figure(figsize=(8,8), facecolor = 'white')
-            plt.imshow(wc)
-            plt.axis('off') 
-            plt.tight_layout(pad=2)
-            plt.savefig('word_cloud.png')
+            return wc
 
 
         def topic_modelling(textblock):
