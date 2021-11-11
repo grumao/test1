@@ -91,8 +91,8 @@ def services():
                     ('Saturn is the largest planet by surface area', 'fake'),
                     ('French fries originated in France', 'fake'),
                     ('Sound does not carry in space', 'true'),
-                    ('Hippopotamus milk is pink in color', 'true')
-                    ('The American Flag has six colors', 'fake')
+                    ('Hippopotamus milk is pink in color', 'true'),
+                    ('The American Flag has six colors', 'fake'),
                     ('The human race has made it to mars', 'fake')]
             model = NaiveBayesClassifier(data)
             service5 = model.classify(textblock)
