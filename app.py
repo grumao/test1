@@ -79,6 +79,24 @@ def services():
             from wordcloud import WordCloud
             wc = WordCloud(background_color='white', width=300, height=300, margin=2).generate(textblock)
             return wc
+        
+        
+        def text_classification(textblock):
+            from textblob.classifiers import NaiveBayesClassifier
+            data = [('Tomatoes and avocados are fruits, not vegetables', 'true'),
+                    ('Neptune is no longer a planet', 'fake'),
+                    ('Water covers 70% of the Earth', 'true'),
+                    ('It is impossible to lick your own elbow', 'true'),
+                    ('There is no word in the dictionary that rhymes with orange', 'true'), 
+                    ('Saturn is the largest planet by surface area', 'fake'),
+                    ('French fries originated in France', 'fake'),
+                    ('Sound does not carry in space', 'true'),
+                    ('Hippopotamus milk is pink in color', 'true')
+                    ('The American Flag has six colors', 'fake')
+                    ('The human race has made it to mars', 'fake')]
+            model = NaiveBayesClassifier(data)
+            service5 = model.classify(textblock)
+            return service5
 
 
         def topic_modelling(textblock):
