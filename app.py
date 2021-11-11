@@ -192,15 +192,23 @@ def services():
         if data['user_string']['services']['1']:
             op1 = sentiment(text)
             output['Sentiment analysis'] = op1
+            
         if data['user_string']['services']['2']:
             op2 = part_of_speech(text)
             output['Part of speech'] = op2
+            
+        if data['user_string']['services']['3']:
+            op3 = text_classification(text)
+            output['Part of speech'] = op3
+            
         if data['user_string']['services']['4']:
-            op3 = word_cloud(text)
+            op4 = word_cloud(text)
+            output['Word Cloud'] = op4
 
         if data['user_string']['services']['5']:
             op5 = topic_modelling(text)
             output['Topic modelling'] = op5
+            
         if data['user_string']['services']['6']:
             op6 = aspects(text)
             output['Aspect mining'] = op6
@@ -209,7 +217,7 @@ def services():
 
 
         return render_template('results.html',R1= output['Sentiment analysis'],R2 = output['Part of speech'],
-                               R3= output['Text classification'],R4 = plt.imshow(op3),
+                               R3= output['Text classification'],R4 = plt.imshow(output['Word Cloud']),
                                R5= output['Topic modelling'], R6= output['Aspect mining'])
     else:
         return redirect(url_for('home'))
