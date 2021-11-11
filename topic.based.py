@@ -207,7 +207,7 @@ print(corpus[:1])
 # Build LDA model
 lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
                                            id2word=id2word,
-                                           num_topics=20, 
+                                           num_topics=1, 
                                            random_state=100,
                                            update_every=1,
                                            chunksize=100,
