@@ -60,21 +60,9 @@ def services():
             return service2
         
         def text_classification(textblock):
-            import pandas as pd
-            from textblob.classifiers import NaiveBayesClassifier
-            fake = pd.read_csv('Fake.csv')
-            true = pd.read_csv('True.csv')
-            fake['class'] = 'fake'
-            true['class'] = 'true'
-            factCheck = pd.concat([fake,true]).reset_index(drop=True)
-            factCheck = factCheck.sample(frac=1)
-            model_data = factCheck[['text', 'class']]
-            model_data = model_data.values.tolist()
-            train = model_data[1:800]
-            test = model_data[801:1000]
-            model = NaiveBayesClassifier(train)
-            service3 = model.classify(textblock)
+            service3 = fact_check(textblock)
             return service3
+
         
         def word_cloud(textblock):
             from wordcloud import WordCloud
