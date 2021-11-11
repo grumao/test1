@@ -91,6 +91,7 @@ stop_words.extend(['from', 'subject', 're', 'edu', 'use'])
 #df = pd.read_html('http:54.166.246.24:8000/')
 #print(df.target_names.unique())
 #df.head()
+def topic_based():
 
 df = [
     'There is a game on tonight that is very popular',
@@ -107,6 +108,7 @@ df = [
 #clean data
 
 #remove newline characters 
+
 df = [re.sub('\s+',' ', sent)for sent in df]
 
 #remove quotes
@@ -207,7 +209,7 @@ print(corpus[:1])
 # Build LDA model
 lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
                                            id2word=id2word,
-                                           num_topics=1, 
+                                           num_topics=20, 
                                            random_state=100,
                                            update_every=1,
                                            chunksize=100,
